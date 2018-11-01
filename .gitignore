@@ -1,0 +1,4 @@
+**/DataGeneration/cropped_img/
+**/DataGeneration/img/
+\.vscode/
+__pycache__/

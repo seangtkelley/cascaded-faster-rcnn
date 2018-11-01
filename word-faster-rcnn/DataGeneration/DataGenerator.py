@@ -17,14 +17,14 @@ total_maps = 0
 maps = {}
 for f in files:
     if f.endswith(".npy"):
-    	   total_maps += 1
-           data = np.load(annotations_directory+f).item()
-           map_name = f.split(".")[0]
-           maps[map_name] = []
-           for key in data.keys():
-           	vertices = data[key]['vertices']
-		if len(vertices) == 4:
-                   maps[map_name].append(vertices)
+        total_maps += 1
+        data = np.load(annotations_directory+f).item()
+        map_name = f.split(".")[0]
+        maps[map_name] = []
+        for key in data.keys():
+            vertices = data[key]['vertices']
+            if len(vertices) == 4:
+                maps[map_name].append(vertices)
 
 #angles = range(-100, 105, 5)
 angles = [0]
@@ -64,7 +64,7 @@ for k, mapname in enumerate(angles_by_map.keys()):
     print total_maps
     print total_maps/fold
     '''
-    if k % (total_maps / fold) == 0:
+    if k % (total_maps // fold) == 0:
         current_fold += 1
         fold_dir = "./fold_"+str(current_fold)
         if os.path.isdir(fold_dir) == False:
@@ -133,8 +133,8 @@ for k, mapname in enumerate(angles_by_map.keys()):
                 pt3 = [int(transformed_points[2][0]), int(transformed_points[2][1])]
                 pt4 = [int(transformed_points[3][0]), int(transformed_points[3][1])]
                 #
-		# uncomment the following two lines to visualize the bounding boxes 
-		# in the new set of images
+                # uncomment the following two lines to visualize the bounding boxes 
+                # in the new set of images
                 #cnt = np.array([pt1, pt2, pt3, pt4])
                 #cv2.drawContours(rot_img, [cnt], 0, (255, 0, 0), 7)
                 #########################################################################

@@ -25,7 +25,7 @@ if os.path.isdir("./cropped_img") == False:
     os.mkdir("./cropped_img")
 
 def create_crops(img, img_name, regions):
-    print img_name
+    print(img_name)
     height = img.shape[0]; width = img.shape[1]
     current_x = 0; current_y = 0
     index = 0
@@ -79,14 +79,14 @@ regions = None
 count = 0
 for line in annotations:
     if line.endswith(".tiff\n"):
-	count += 1
+        count += 1
         if regions is not None:
             create_crops(image, image_name, regions)
 
         image_name = line.split("/")[1][:-1]
         print("Reading image: " + images_directory+image_name)
         image = cv2.imread(images_directory+image_name)
-	print image.shape
+        print(image.shape)
         regions = []
     elif len(line.split(" ")) == 4:
         split_line = line.split(" ")
@@ -95,7 +95,7 @@ for line in annotations:
 
         regions.append( (x, y, r_w, r_h) )
 
-print image_name
+print(image_name)
 print("Images: " + str(count))
 create_crops(image, image_name, regions)
 

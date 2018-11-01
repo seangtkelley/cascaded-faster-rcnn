@@ -158,7 +158,7 @@ def convert_bbox_format(bbox, angle, pivot):
 def filter_predictions(predictions):
     predicted_points = [(x[0], x[1]) for x in predictions]
     indices = range(len(predictions))
-    print indices
+    print(indices)
     filtered_points = predicted_points
     filtered_indices = indices
     done = False
@@ -183,9 +183,9 @@ def filter_predictions(predictions):
             candidate_area = width * height
             candidate_index = bbox_index
             candidate_ar = width / height if width > height else height / width
-            print matches[1]
+            print(matches[1])
             for i, match in enumerate(matches[1]):
-                print match
+                print(match)
                 match_bbox_index = filtered_indices[match]
                 match_bbox = predictions[match_bbox_index]
                 width = math.sqrt((match_bbox[2] - match_bbox[0]) ** 2 + (match_bbox[3] - match_bbox[1]) ** 2)
