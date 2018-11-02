@@ -36,14 +36,14 @@ def create_crops(img, img_name, regions):
 
     print(img.shape)
     print("Curr y " + str(current_y) + " - crop_h " + str(crop_h) + " height " + str(height))
-    print("Curr x " + str(current_x) + " - crop_w " + str(crop_w) + " width" + str(width))
+    print("Curr x " + str(current_x) + " - crop_w " + str(crop_w) + " width " + str(width))
     print("============================================")
     
     while current_y + crop_h < height:
         while current_x + crop_w < width:
             crop_img = img[current_y:current_y+crop_h, current_x:current_x+crop_w]
 
-            split_img = img_name.split(".")
+            split_img = img_name.split('/')[-1].split(".")
             cropped_img_name = os.path.join(cropped_img_output_dir, split_img[0]+"_"+str(index)+"."+split_img[1])
 
             cropped_regions = []
