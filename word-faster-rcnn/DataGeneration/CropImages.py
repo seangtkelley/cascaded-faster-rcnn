@@ -44,6 +44,7 @@ def create_crops(img, img_name, regions):
             crop_img = img[current_y:current_y+crop_h, current_x:current_x+crop_w]
 
             split_img = img_name.split('/')[-1].split(".")
+            print(split_img)
             cropped_img_name = os.path.join(cropped_img_output_dir, split_img[0]+"_"+str(index)+"."+split_img[1])
 
             cropped_regions = []
