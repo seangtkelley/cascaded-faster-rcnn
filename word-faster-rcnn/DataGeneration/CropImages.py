@@ -44,7 +44,6 @@ def create_crops(img, img_name, regions):
             crop_img = img[current_y:current_y+crop_h, current_x:current_x+crop_w]
 
             split_img = img_name.split('/')[-1].split(".")
-            print(split_img)
             cropped_img_name = os.path.join(cropped_img_output_dir, split_img[0]+"_"+str(index)+"."+split_img[1])
 
             cropped_regions = []
@@ -79,14 +78,14 @@ def create_crops(img, img_name, regions):
 
 
 image = None
-image_name = "" 
+image_path = "" 
 regions = None
 count = 0
 for line in annotations:
     if line.endswith(".tiff\n"):
         count += 1
         if regions is not None:
-            create_crops(image, image_name, regions)
+            create_crops(image, image_path, regions)
 
         image_path = line.replace("\n", "")
         print("Reading image: " + image_path)
@@ -100,7 +99,7 @@ for line in annotations:
 
         regions.append( (x, y, r_w, r_h) )
 
-print(image_name)
+print(image_path)
 print("Images: " + str(count))
-create_crops(image, image_name, regions)
+create_crops(image, image_path, regions)
 
