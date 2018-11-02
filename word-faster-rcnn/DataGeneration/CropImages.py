@@ -19,8 +19,7 @@ curr_path = os.path.dirname(os.path.realpath(__file__))
 annotations_filename = sys.argv[1]
 annotations = open(annotations_filename, "r").readlines()
 
-images_directory = sys.argv[2]
-train_directory = sys.argv[3]
+train_directory = sys.argv[2]
 
 cropped_annotations = open(os.path.join(train_directory, "cropped_annotations.txt"), "w")
 
@@ -88,9 +87,8 @@ for line in annotations:
         if regions is not None:
             create_crops(image, image_name, regions)
 
-        image_name = line.split("/")[1][:-1]
-        print("Reading image: " + images_directory+image_name)
-        image = cv2.imread(images_directory+image_name)
+        print("Reading image: " + line)
+        image = cv2.imread(line)
         print(image.shape)
         regions = []
     elif len(line.split(" ")) == 4:
