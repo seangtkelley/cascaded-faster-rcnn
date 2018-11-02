@@ -87,8 +87,9 @@ for line in annotations:
         if regions is not None:
             create_crops(image, image_name, regions)
 
-        print("Reading image: " + line)
-        image = cv2.imread(line)
+        image_path = line.replace("\n", "")
+        print("Reading image: " + image_path)
+        image = cv2.imread(image_path)
         print(image.shape)
         regions = []
     elif len(line.split(" ")) == 4:
