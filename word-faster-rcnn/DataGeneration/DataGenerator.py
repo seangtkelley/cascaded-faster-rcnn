@@ -7,9 +7,13 @@ sys.path.append("../../evaluation/")
 from util import rotate_image, adjust_image_size
 import pickle
 
-annotations_directory = "./annotations/current/"
+curr_path = os.path.dirname(os.path.realpath(__file__))
 
-files = os.listdir(annotations_directory)
+annotations_dir = sys.argv[1]
+map_input_dir = sys.argv[2]
+map_output_dir = os.path.join(curr_path, 'img')
+
+files = os.listdir(annotations_dir)
 
 fold = 5
 total_maps = 0
@@ -18,7 +22,7 @@ maps = {}
 for f in files:
     if f.endswith(".npy"):
         total_maps += 1
-        data = np.load(annotations_directory+f).item()
+        data = np.load(os.path.join(annotations_dir, f)).item()
         map_name = f.split(".")[0]
         maps[map_name] = []
         for key in data.keys():
@@ -53,8 +57,8 @@ for map_name in maps.keys():
 
 
 
-if os.path.isdir("./img/") == False:
-    os.mkdir("./img/")
+if os.path.isdir(map_output_dir) == False:
+    os.mkdir(map_output_dir)
 
 current_fold = 0
 annotations = None
@@ -75,7 +79,7 @@ for k, mapname in enumerate(angles_by_map.keys()):
         annotations = open(fold_dir+"/test.txt", "w")
 
     #print("Writing map " + mapname)
-    map_img = cv2.imread("./maps/" + mapname + ".tiff")
+    map_img = cv2.imread(os.path.join(map_input_dir, mapname + ".tiff"))
     ######## Make room to rotate the image ####################
     padding_amount = 0
     #map_img, translate = adjust_image_size(map_img, padding_amount)
@@ -99,7 +103,7 @@ for k, mapname in enumerate(angles_by_map.keys()):
         rot_image_name = mapname + "_" + str(angle) + ".tiff"
 
         if len(bboxes) > 0:
-            annotations.write("img/" + rot_image_name + "\n")
+            annotations.write(os.path.join(map_output_dir, rot_image_name) + "\n")
             annotations.write(str(len(bboxes))+"\n")
 
             rot_img, rot_mat, bounds = rotate_image(map_img, angle, original_shape)
@@ -142,9 +146,9 @@ for k, mapname in enumerate(angles_by_map.keys()):
                 width =  math.sqrt( (pt1[0] - pt2[0])**2 + (pt1[1] - pt2[1])**2 )
                 height = math.sqrt( (pt1[0] - pt4[0])**2 + (pt1[1] - pt4[1])**2 )
                 string = str(pt1[0]) + " " + str(pt1[1]) + " " + str(width) + " " + str(height)
-		annotations.write(string+"\n")
+                annotations.write(string+"\n")
 
-            cv2.imwrite("./img/" + rot_image_name, rot_img)
+            cv2.imwrite(os.path.join(map_output_dir, rot_image_name), rot_img)
 
 #        if os.path.isdir("./"+mapname) == False:
  #           os.mkdir("./"+mapname)

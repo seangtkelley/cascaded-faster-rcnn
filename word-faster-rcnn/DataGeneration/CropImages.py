@@ -4,25 +4,30 @@ import sys
 import os
 
 
-crop_h = 300
-crop_w = 300
-step = 100
+crop_h = 512
+crop_w = 512
+step = 400
 
 '''
 crop_h = 100
 crop_w = 100
 step = 40
 '''
+
+curr_path = os.path.dirname(os.path.realpath(__file__))
+
 annotations_filename = sys.argv[1]
 annotations = open(annotations_filename, "r").readlines()
 
 images_directory = sys.argv[2]
 train_directory = sys.argv[3]
 
-cropped_annotations = open(train_directory+"cropped_annotations.txt", "w")
+cropped_annotations = open(os.path.join(train_directory, "cropped_annotations.txt"), "w")
 
-if os.path.isdir("./cropped_img") == False:
-    os.mkdir("./cropped_img")
+cropped_img_output_dir = os.path.join(curr_path, 'cropped_img')
+
+if os.path.isdir(cropped_img_output_dir) == False:
+    os.mkdir(cropped_img_output_dir)
 
 def create_crops(img, img_name, regions):
     print(img_name)
@@ -40,7 +45,7 @@ def create_crops(img, img_name, regions):
             crop_img = img[current_y:current_y+crop_h, current_x:current_x+crop_w]
 
             split_img = img_name.split(".")
-            cropped_img_name = "./cropped_img/"+split_img[0]+"_"+str(index)+"."+split_img[1]
+            cropped_img_name = os.path.join(cropped_img_output_dir, split_img[0]+"_"+str(index)+"."+split_img[1])
 
             cropped_regions = []
 
