@@ -30,8 +30,8 @@ for f in files:
             if len(vertices) == 4:
                 maps[map_name].append(vertices)
 
-#angles = range(-100, 105, 5)
-angles = [0]
+angles = range(-90, 90, 5)
+#angles = [0]
 
 print("Generating angles...")
 angles_by_map = {}
@@ -78,7 +78,7 @@ for k, mapname in enumerate(angles_by_map.keys()):
             annotations.close()
         annotations = open(fold_dir+"/test.txt", "w")
 
-    #print("Writing map " + mapname)
+    print("Writing map " + mapname)
     map_img = cv2.imread(os.path.join(map_input_dir, mapname + ".tiff"))
     ######## Make room to rotate the image ####################
     padding_amount = 0
@@ -87,7 +87,7 @@ for k, mapname in enumerate(angles_by_map.keys()):
     translate = (0, 0)
     original_shape = map_img.shape
 
-    #print("Translating annotations")
+    print("Translating annotations")
     for angle in angles:
         for i in range(len(angles_by_map[mapname][angle])):
             bbox, bbox_angle = angles_by_map[mapname][angle][i]
@@ -97,7 +97,7 @@ for k, mapname in enumerate(angles_by_map.keys()):
             angles_by_map[mapname][angle][i][0][3] = (int(bbox[3][0]) + translate[0], int(bbox[3][1]) + translate[1])
 
     for angle in angles:
-        #print("Annotating angle " + str(angle))
+        print("Annotating angle " + str(angle))
         bboxes = angles_by_map[mapname][angle]
 	
         rot_image_name = mapname + "_" + str(angle) + ".tiff"
