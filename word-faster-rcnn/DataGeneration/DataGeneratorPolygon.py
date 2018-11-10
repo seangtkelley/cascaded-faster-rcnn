@@ -117,15 +117,9 @@ for k, mapname in enumerate(angles_by_map.keys()):
                 transformed_points = rot_mat.dot(points.T).T
 
                 ########## Visualize mapped bounding boxes after rotation ###############
-                pt1 = [int(transformed_points[0][0]), int(transformed_points[0][1])]
-                pt2 = [int(transformed_points[1][0]), int(transformed_points[1][1])]
-                pt3 = [int(transformed_points[2][0]), int(transformed_points[2][1])]
-                pt4 = [int(transformed_points[3][0]), int(transformed_points[3][1])]
-                #
                 # uncomment the following two lines to visualize the bounding boxes 
                 # in the new set of images
-                #cnt = np.array([pt1, pt2, pt3, pt4])
-                #cv2.drawContours(rot_img, [cnt], 0, (255, 0, 0), 7)
+                #cv2.drawContours(rot_img, [transformed_points], 0, (255, 0, 0), 7)
                 #########################################################################
 
                 string = " ".join([ str(int(point[0])) + ',' + str(int(point[1]))  for point in transformed_points])
