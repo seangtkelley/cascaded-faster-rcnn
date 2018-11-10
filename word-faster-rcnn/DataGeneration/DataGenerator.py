@@ -11,7 +11,7 @@ curr_path = os.path.dirname(os.path.realpath(__file__))
 
 annotations_dir = sys.argv[1]
 map_input_dir = sys.argv[2]
-map_output_dir = os.path.join(os.sep, 'mnt', 'nfs', 'work1', 'elm', 'sgkelley', 'data', 'maps', 'angles_-90to90step5')
+map_output_dir = os.path.join(os.sep+'mnt', 'nfs', 'work1', 'elm', 'sgkelley', 'data', 'maps', 'angles_-90to90step5')
 
 files = os.listdir(annotations_dir)
 

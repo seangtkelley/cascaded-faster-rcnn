@@ -21,9 +21,9 @@ annotations = open(annotations_filename, "r").readlines()
 
 train_directory = sys.argv[2]
 
-cropped_annotations = open(os.path.join(train_directory, "cropped_annotations.txt"), "w")
+cropped_annotations = open(os.path.join(train_directory, "cropped_annotations_angles_-90to90step5.txt"), "w")
 
-cropped_img_output_dir = os.path.join(curr_path, 'cropped_img')
+cropped_img_output_dir = os.path.join(os.sep+'mnt', 'nfs', 'work1', 'elm', 'sgkelley', 'data', 'maps', 'angles_-90to90step5', 'cropped_img')
 
 if os.path.isdir(cropped_img_output_dir) == False:
     os.mkdir(cropped_img_output_dir)
